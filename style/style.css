@@ -71,6 +71,9 @@ body{
     background-image: url(gradient.png);
     background-repeat: no-repeat;
     background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 /*    background-position-y:-150px;*/
 /*    background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);*/
 }
