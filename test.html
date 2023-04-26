@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <img class='ball1' src='style/ball1.png'>
+    <img class='ball2' src='style/ball2.png'>
+
+    <div class="quiz">
+        <div class ="illustration" id ="illustration" src = "style/illustration.png"></div>
+        <div class="quiz-header" id="header">
+            <h2 class = "title">Question text...</h2>
+            <h2 class = "title">%text%</h2>
+            <h3 class = "summary">%message%</h2>
+            <p class = "result">%result%</p>
+
+        </div>
+
+        <ul style="list-style-type: none;" class="options" id="list">
+            <li>
+                <label>
+                    <input type="radio" class="answer" name="answer">
+                    <span>Answer...</span>
+                </label>
+            </li>
+
+            <li>
+                <label>
+                    <input type="radio" class="answer" name="answer">
+                    <span>Answer...</span>
+                </label>
+            </li>
+            
+        </ul>
+        <button class="submit_answer" id="submit">Validate</button>
+
+    
+<!--     <div style="display: none;"id="resultats">Resulatats:Bon resultats!</div>
+    <div style="display: none;"id="resultats2">Resulatats:Mal resultats!</div>
+    <div style="display: none;"id="resultats_total">Resulatats:</div>
+     -->
+    </div>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
