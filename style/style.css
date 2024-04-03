@@ -104,48 +104,6 @@ body{
 }
 
 
-
-/*.ball2{
-    width:300px;
-    position:absolute;
-    top:400px;
-    left:1000px;
-    transition: top ease-in-out 2s;
-
-}*/
-
-/*.ball2:hover{
-
-    top: 300px;
-}*/
-
-/*.ball1{
-    width:400px;
-    position:absolute;
-    offset-path: path('M229.66,162.34c-47.25-10-66-40.55-94.9-28.66-29.13,12-63.53,49.27-59.24,86C79.94,257.46,113.27,299.08,108,319,97,360.58,4.82,392.28,30.94,427.31,45.57,447,219.32,501.48,360.87,405c72-49,89.66-260.59,47.14-285.35C372.65,99.09,318.25,181.08,229.66,162.34Z');
-*//*    offset-distance:10%;*/
-/*    animation: motion 16s linear infinite;
-    offset-rotate: 0deg;*/
-/*    animation: motion 7s infinite;
-    animation-timing-function: linear;*/
-/*}*/
-
-/*@keyframes motion{
-
-    100% {offset-distance: 100%;}
-}*/
-
-/*
-@keyframes motion{
-    0% {top:300px; left:40px}
-    25% {top:200px; left:80px}
-    50% {top:100px; left:40px}
-    75% {top:200px; left:80px}
-    100% {top:300px; left:40px}
-
-}
-*/
-
 .options{
     font-size: 20px;
     
