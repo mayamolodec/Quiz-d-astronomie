@@ -84,17 +84,17 @@
 p{
     color: aliceblue;
 }
-/* 
 body{
-    background-color: white;
+    background-color: mistyrose;
+/*     background-color: white;
     background-image: url(bg.png);
     background-repeat: no-repeat;
     background-size:     cover;                        
     background-position: center center; 
     object-fit: cover;
-    transition: all .3s ease;
+    transition: all .3s ease; */
 
-} */
+} 
 
 .dark_mode{
     background-image: url(bg_dark.png);
