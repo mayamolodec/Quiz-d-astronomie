@@ -84,8 +84,9 @@
 p{
     color: aliceblue;
 }
-
+/* 
 body{
+    background-color: white;
     background-image: url(bg.png);
     background-repeat: no-repeat;
     background-size:     cover;                        
@@ -93,7 +94,7 @@ body{
     object-fit: cover;
     transition: all .3s ease;
 
-}
+} */
 
 .dark_mode{
     background-image: url(bg_dark.png);
