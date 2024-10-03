@@ -1,15 +1,15 @@
 const questions = [{
     question: "Quelle etoile est la plus frappant sur le ciel de nuit?",
     answers:
-    ["Altair", "Sirius", "Polaire","Venus"],
-    correct:2
+    ["Altair", "Polaire", "Sirius", "Venus"],
+    correct:3
 },
 
 {
     question: "Quel de ces objets est le plus loin de nous?",
     answers:
-    ["Comète", "Mars", "Station spatiale internationale","Etoile filante"],
-    correct:1
+    ["Lune", "Mars", "Station spatiale internationale","Etoile filante"],
+    correct:2
 },
 
 {
@@ -44,7 +44,9 @@ function clearPage(){
 }
 
 
+
 function showQuestion(){
+
 
     // Picture
     const pictureTemplate = `<img class ="illustration" id ="illustration" src = "style/%illustration%.png">`
@@ -82,10 +84,13 @@ function showQuestion(){
 }
 
 function showResults(){
+    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "style/%illustration%.png">`
+    const pictureHTML = pictureTemplate.replace('%illustration%', 'illustration');
+    picContainer.innerHTML = pictureHTML;
     listContainer.style.display = "none"; 
     const resultsTemplate = 
         `<h2 class = "title">%title%</h2>
-        <h3 class = "summary">%message%</h2>
+        <h4 class = "summary">%message%</h4>
         <p class = "result">%result%</p>`;
 
     let message;
@@ -97,14 +102,14 @@ function showResults(){
     }
     else if ((score*100)/questions.length >= 50){
         title = 'Bon résultat!😺';
-        message = 'Vous avez répondu correctement à plus de 50 % des questions!';
+        message = 'Vous avez répondu correctement à plus de 50% des questions!';
     }
     else{
         title = 'Pas mal!🚀';
-        message = 'Vous avez répondu correctement à moins de 50 % des questions. Cliquez ici pour recommencer!';
+        message = 'Vous avez répondu correctement à moins de 50% des questions. Cliquez ici pour recommencer!';
     }
 
-    let result = `${score} of ${questions.length}` ;
+    let result = `${score} de ${questions.length}` ;
 
     const finalMessage = resultsTemplate
                                 .replace('%title%', title)
@@ -114,7 +119,7 @@ function showResults(){
     headerContainer.innerHTML = finalMessage;
     
     submitButton.blur();
-    submitButton.innerText = 'Start again!';
+    submitButton.innerText = 'Recommencer!';
     submitButton.onclick = function() {
         history.go(); 
     }

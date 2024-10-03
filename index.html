@@ -13,15 +13,14 @@
 
 </head>
 <body>
-<!--         <button class="mode_button" onclick="myFunction()">Change mode</button> -->
-
-
+    <div class="wrap" id="wrap">
     <div class="quiz">
-        <div class ="illustration" id ="illustration" src = "style/illustration.png"></div>
+        <div class ="illustration" id ="illustration" src = "illustration.png"></div>
+        <div class="quiz-body">
         <div class="quiz-header" id="header">
             <h2 class = "title">Question text...</h2>
             <h2 class = "title">%text%</h2>
-            <h3 class = "summary">%message%</h2>
+            <p class = "summary">%message%</p>
             <p class = "result">%result%</p>
 
         </div>
@@ -40,17 +39,15 @@
                     <span>Answer...</span>
                 </label>
             </li>
+        </div>
             
         </ul>
         <button class="submit_answer" id="submit">Valider</button>
-
-    
-<!--     <div style="display: none;"id="resultats">Resulatats:Bon resultats!</div>
-    <div style="display: none;"id="resultats2">Resulatats:Mal resultats!</div>
-    <div style="display: none;"id="resultats_total">Resulatats:</div>
-     -->
     </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="scripts/main.js"></script>
+
 </body>
 </html>
