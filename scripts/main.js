@@ -49,7 +49,7 @@ function showQuestion(){
 
 
     // Picture
-    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "style/%illustration%.png">`
+    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "assets/%illustration%.png">`
     const pictureHTML = pictureTemplate.replace('%illustration%', 'illustr_'+ question_index);
     console.log(pictureHTML);
     picContainer.innerHTML = pictureHTML;
@@ -84,7 +84,7 @@ function showQuestion(){
 }
 
 function showResults(){
-    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "style/%illustration%.png">`
+    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "assets/%illustration%.png">`
     const pictureHTML = pictureTemplate.replace('%illustration%', 'illustration');
     picContainer.innerHTML = pictureHTML;
     listContainer.style.display = "none"; 
