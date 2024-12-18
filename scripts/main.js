@@ -1,3 +1,5 @@
+"use strict";
+
 const questions = [{
     img_link: "assets/illustr_0.png",
     question: "Quelle etoile est la plus brillante sur le ciel de nuit?",
@@ -35,70 +37,90 @@ const questions = [{
 let score = 0;
 let question_index = 0;
 
-const headerContainer = document.querySelector('#header');
-const listContainer = document.querySelector('#list');
-const submitButton = document.querySelector('#submit');
-const picContainer = document.querySelector('#illustration');
+const wrapContainer = document.querySelector('#wrap');
+
+let quizCard = document.createElement('div');
+quizCard.className="quiz";
+
+let cardImage = document.createElement('img');
+cardImage.className="illustration";
+cardImage.setAttribute("id", "illustration");
+
+let cardBody = document.createElement('div');
+cardBody.className = "quiz-body";
+
+let cardHeader = document.createElement('div');
+cardHeader.className = "quiz-header";
+cardHeader.setAttribute("id", "header");
+
+let questionText = document.createElement('h2');
+questionText.className = "title";
+
+let submitButton = document.createElement('button');
+submitButton.className = "submit_answer";
+submitButton.setAttribute("id", "submit");
+submitButton.textContent = "Valider";
+
+let answersList = document.createElement('ul');
+answersList.className = "options";
+answersList.setAttribute("id", "list");
+
+wrapContainer.append(quizCard);
+quizCard.append(cardBody);
+cardBody.append(cardHeader);
+quizCard.append(submitButton);
+
 
 function clearPage(){
-    headerContainer.innerHTML = '';
-    listContainer.innerHTML = '';
-    console.log(picContainer.innerHTML);
-    picContainer.innerHTML = '';
+    cardHeader.innerHTML = '';
+    answersList.innerHTML = '';
+    cardImage.innerHTML = '';
 }
 
 
-
 function showQuestion(){
+    const question = questions[question_index];
+    cardImage.src = question['img_link'];
+    quizCard.prepend(cardImage);
 
-
-    // Picture
-    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "assets/%illustration%.png">`
-    const pictureHTML = pictureTemplate.replace('%illustration%', 'illustr_'+ question_index);
-    console.log(pictureHTML);
-    picContainer.innerHTML = pictureHTML;
-
-    // Question
-    const headerTemplate =`<h2 class = "title">%title%</h2>`;
-    const title = headerTemplate.replace('%title%', questions[question_index]['question']);
-    headerContainer.innerHTML = title;
+    questionText.textContent = question['question'];
+    cardHeader.append(questionText);
 
     let answerNumber = 1;
+    
+    cardHeader.after(answersList);
 
     // Answers
-    for (answerOption of questions[question_index]['answers']){
+    question.answers.forEach((answer)=>{
+        let answerOption = document.createElement('li');
+        let optionLabel = document.createElement('label');
+        let optionInput = document.createElement('input');
+        optionInput.className="answer";
+        optionInput.setAttribute("name", "answer");
+        optionInput.setAttribute("value", answerNumber);
+        optionInput.type = "radio";
 
-        const questionTemplate = 
-            `<li>
-                <label>
-                    <input value="%value%" type="radio" class="answer" name="answer">
-                    <span>%answer%</span>
-                </label>
-            </li>`;
+        let optionText = document.createElement('div');
+        optionText.textContent = answer;
 
-        const answerHTML = questionTemplate.replace('%answer%', answerOption).replace('%value%', answerNumber);
-        
-
-        listContainer.innerHTML += answerHTML;
+        answersList.append(answerOption);
+        answerOption.append(optionLabel);
+        optionLabel.append(optionInput);
+        optionLabel.append(optionText);
 
         answerNumber++;
-    }
+    })
 
     
 }
 
 function showResults(){
-    const pictureTemplate = `<img class ="illustration" id ="illustration" src = "assets/%illustration%.png">`
-    const pictureHTML = pictureTemplate.replace('%illustration%', 'illustration');
-    picContainer.innerHTML = pictureHTML;
-    listContainer.style.display = "none"; 
-    const resultsTemplate = 
-        `<h2 class = "title">%title%</h2>
-        <h4 class = "summary">%message%</h4>
-        <p class = "result">%result%</p>`;
+    cardImage.src = "assets/illustration.png";
+    quizCard.prepend(cardImage);
 
     let message;
     let title;
+
 
     if (score === questions.length){
         title = 'Félicitations!🌠';
@@ -115,13 +137,19 @@ function showResults(){
 
     let result = `${score} de ${questions.length}` ;
 
-    const finalMessage = resultsTemplate
-                                .replace('%title%', title)
-                                .replace('%message%', message)
-                                .replace('%result%', result);
+    questionText.textContent = title;
+    cardHeader.append(questionText);
 
-    headerContainer.innerHTML = finalMessage;
-    
+    let messageText = document.createElement("div");
+    messageText.className = "summary";
+    messageText.textContent = message;
+    cardHeader.append(messageText);
+
+    let scoreText = document.createElement("div");
+    scoreText.className = "result";
+    scoreText.textContent = result;
+    cardHeader.append(scoreText);
+
     submitButton.blur();
     submitButton.innerText = 'Recommencer!';
     submitButton.onclick = function() {
@@ -132,7 +160,7 @@ function showResults(){
 function checkAnswer(){
 
     // Finds checked radio
-    const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
+    const checkedRadio = answersList.querySelector('input[type="radio"]:checked');
 
     // Stops if there is no answer
     if (!checkedRadio){
@@ -140,7 +168,7 @@ function checkAnswer(){
         return
     }
 
-    // Make a numser of user's answer
+    // Make a number of user's answer
     const userAnswer = parseInt(checkedRadio.value);
 
     if (userAnswer === questions[question_index]['correct']){
@@ -163,50 +191,6 @@ function checkAnswer(){
 
 }
 
-
-function myFunction() {
-   var element = document.body;
-   element.classList.toggle("dark_mode");
-}
-
-
 clearPage();
 showQuestion();
 submitButton.onclick = checkAnswer;
-
-
-// console.log(listContainer);
-
-
-// let answers = document.getElementsByClassName('option');
-
-
-// var buttons = document.querySelectorAll('button');
-
-// buttons.forEach(function(button) {
-//     button.addEventListener('click', function() {
-//         var answer = this.getAttribute('value');
-//         localStorage.setItem('answer', answer);
-//         return(answer);
-//         // if (answer == 1){
-//         //     alert("Bon reponse" + answer);
-//         // }
-//         // else{
-//         //     alert("Mal reponse" + answer);
-//         // }
-//     })
-    
-// })
-
-// function Correcr_Answer(){
-//     var x = document.getElementById("resultats");
-//     x.style.display = "block";
-
-// }
-
-// function Incorrecr_Answer(){
-//     var x = document.getElementById("resultats2");
-//     x.style.display = "block";
-// }
-
-
