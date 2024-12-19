@@ -39,8 +39,9 @@ let question_index = 0;
 
 const wrapContainer = document.querySelector('#wrap');
 
-let quizCard = document.createElement('div');
+let quizCard = document.createElement('form');
 quizCard.className="quiz";
+quizCard.addEventListener("submit", checkAnswer);
 
 let cardImage = document.createElement('img');
 cardImage.className="illustration";
@@ -157,7 +158,8 @@ function showResults(){
     }
 }
 
-function checkAnswer(){
+
+function checkAnswer(response){
 
     // Finds checked radio
     const checkedRadio = answersList.querySelector('input[type="radio"]:checked');
@@ -175,7 +177,6 @@ function checkAnswer(){
         score++;
 
     }
-    console.log(score);
 
     if (question_index !== questions.length -1){
         question_index++;
@@ -189,52 +190,13 @@ function checkAnswer(){
 
     }
 
+    response.preventDefault();
+
 }
-
-
-// function myFunction() {
-//    var element = document.body;
-//    element.classList.toggle("dark_mode");
-// }
 
 
 clearPage();
 showQuestion();
-submitButton.onclick = checkAnswer;
 
-
-// console.log(listContainer);
-
-
-// let answers = document.getElementsByClassName('option');
-
-
-// var buttons = document.querySelectorAll('button');
-
-// buttons.forEach(function(button) {
-//     button.addEventListener('click', function() {
-//         var answer = this.getAttribute('value');
-//         localStorage.setItem('answer', answer);
-//         return(answer);
-//         // if (answer == 1){
-//         //     alert("Bon reponse" + answer);
-//         // }
-//         // else{
-//         //     alert("Mal reponse" + answer);
-//         // }
-//     })
-    
-// })
-
-// function Correcr_Answer(){
-//     var x = document.getElementById("resultats");
-//     x.style.display = "block";
-
-// }
-
-// function Incorrecr_Answer(){
-//     var x = document.getElementById("resultats2");
-//     x.style.display = "block";
-// }
 
 
