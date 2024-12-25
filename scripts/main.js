@@ -41,7 +41,36 @@ const wrapContainer = document.querySelector('#wrap');
 
 let quizCard = document.createElement('form');
 quizCard.className="quiz";
-quizCard.addEventListener("submit", checkAnswer);
+quizCard.nam = "answer";
+quizCard.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const formData = new FormData(quizCard);
+    const checkedRadio = formData.get('answer');
+    console.log(typeof(checkedRadio));
+    if (!checkedRadio){
+        submitButton.blur();
+        return
+    }
+
+    if (checkedRadio == questions[question_index]['correct']){
+        score++;
+
+    }
+
+    if (question_index !== questions.length -1){
+        question_index++;
+        clearPage();
+        showQuestion();
+
+    }
+    else{
+        clearPage();
+        showResults();
+
+    }
+
+
+});
 
 let cardImage = document.createElement('img');
 cardImage.className="illustration";
@@ -158,38 +187,6 @@ function showResults(){
     }
 }
 
-
-function checkAnswer(response){
-
-    const checkedRadio = answersList.querySelector('input[type="radio"]:checked');
-
-    if (!checkedRadio){
-        submitButton.blur();
-        return
-    }
-
-    const userAnswer = parseInt(checkedRadio.value);
-
-    if (userAnswer === questions[question_index]['correct']){
-        score++;
-
-    }
-
-    if (question_index !== questions.length -1){
-        question_index++;
-        clearPage();
-        showQuestion();
-
-    }
-    else{
-        clearPage();
-        showResults();
-
-    }
-
-    response.preventDefault();
-
-}
 
 
 clearPage();
