@@ -39,8 +39,37 @@ let question_index = 0;
 
 const wrapContainer = document.querySelector('#wrap');
 
-let quizCard = document.createElement('div');
+let quizCard = document.createElement('form');
 quizCard.className="quiz";
+quizCard.nam = "answer";
+quizCard.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const checkedRadio = e.target.answer.value;
+
+    if (!checkedRadio){
+        submitButton.blur();
+        return
+    }
+
+    if (checkedRadio == questions[question_index]['correct']){
+        score++;
+
+    }
+
+    if (question_index !== questions.length -1){
+        question_index++;
+        clearPage();
+        showQuestion();
+
+    }
+    else{
+        clearPage();
+        showResults();
+
+    }
+
+
+});
 
 let cardImage = document.createElement('img');
 cardImage.className="illustration";
@@ -90,7 +119,6 @@ function showQuestion(){
     
     cardHeader.after(answersList);
 
-    // Answers
     question.answers.forEach((answer)=>{
         let answerOption = document.createElement('li');
         let optionLabel = document.createElement('label');
@@ -113,6 +141,7 @@ function showQuestion(){
 
     
 }
+
 
 function showResults(){
     cardImage.src = "assets/illustration.png";
@@ -157,40 +186,10 @@ function showResults(){
     }
 }
 
-function checkAnswer(){
 
-    // Finds checked radio
-    const checkedRadio = answersList.querySelector('input[type="radio"]:checked');
-
-    // Stops if there is no answer
-    if (!checkedRadio){
-        submitButton.blur();
-        return
-    }
-
-    // Make a number of user's answer
-    const userAnswer = parseInt(checkedRadio.value);
-
-    if (userAnswer === questions[question_index]['correct']){
-        score++;
-
-    }
-    console.log(score);
-
-    if (question_index !== questions.length -1){
-        question_index++;
-        clearPage();
-        showQuestion();
-
-    }
-    else{
-        clearPage();
-        showResults();
-
-    }
-
-}
 
 clearPage();
 showQuestion();
-submitButton.onclick = checkAnswer;
+
+
+
