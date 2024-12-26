@@ -44,9 +44,8 @@ quizCard.className="quiz";
 quizCard.nam = "answer";
 quizCard.addEventListener("submit", (e)=>{
     e.preventDefault();
-    const formData = new FormData(quizCard);
-    const checkedRadio = formData.get('answer');
-    console.log(typeof(checkedRadio));
+    const checkedRadio = e.target.answer.value;
+
     if (!checkedRadio){
         submitButton.blur();
         return
