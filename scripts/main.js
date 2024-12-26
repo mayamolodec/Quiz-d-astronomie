@@ -34,8 +34,8 @@ const questions = [{
 }
 ];
 
-let score = 0;
-let question_index = 0;
+localStorage.setItem("currentScore", 0);
+localStorage.setItem("currentQuestion", 0);
 
 const wrapContainer = document.querySelector('#wrap');
 
@@ -51,13 +51,15 @@ quizCard.addEventListener("submit", (e)=>{
         return
     }
 
-    if (checkedRadio == questions[question_index]['correct']){
-        score++;
+    if (checkedRadio == questions[localStorage["currentQuestion"]]['correct']){
+        // currentScore++;
+        localStorage["currentScore"] = Number(localStorage["currentScore"])+1;
 
     }
 
-    if (question_index !== questions.length -1){
-        question_index++;
+    if (localStorage.getItem("currentQuestion") != questions.length -1){
+        // currentQuestion++;
+        localStorage["currentQuestion"] = Number(localStorage["currentQuestion"])+1;
         clearPage();
         showQuestion();
 
@@ -108,7 +110,8 @@ function clearPage(){
 
 
 function showQuestion(){
-    const question = questions[question_index];
+
+    const question = questions[Number(localStorage["currentQuestion"])];
     cardImage.src = question['img_link'];
     quizCard.prepend(cardImage);
 
@@ -149,7 +152,7 @@ function showResults(){
 
     let message;
     let title;
-
+    let score = Number(localStorage["currentScore"]);
 
     if (score === questions.length){
         title = 'Félicitations!🌠';
@@ -183,7 +186,9 @@ function showResults(){
     submitButton.innerText = 'Recommencer!';
     submitButton.onclick = function() {
         history.go(); 
+        localStorage.clear();
     }
+
 }
 
 
