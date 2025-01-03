@@ -34,8 +34,7 @@ const questions = [{
 }
 ];
 
-let score = 0;
-let question_index = 0;
+
 
 const wrapContainer = document.querySelector('#wrap');
 
@@ -51,13 +50,14 @@ quizCard.addEventListener("submit", (e)=>{
         return
     }
 
-    if (checkedRadio == questions[question_index]['correct']){
-        score++;
+    if (checkedRadio == questions[getQuestion()]['correct']){
+        addPoint();
 
     }
 
-    if (question_index !== questions.length -1){
-        question_index++;
+    if (getQuestion() != questions.length - 1){
+        nextQuestion();
+
         clearPage();
         showQuestion();
 
@@ -108,7 +108,8 @@ function clearPage(){
 
 
 function showQuestion(){
-    const question = questions[question_index];
+
+    const question = questions[getQuestion()];
     cardImage.src = question['img_link'];
     quizCard.prepend(cardImage);
 
@@ -149,7 +150,7 @@ function showResults(){
 
     let message;
     let title;
-
+    let score = getScore();
 
     if (score === questions.length){
         title = 'Félicitations!🌠';
@@ -183,11 +184,12 @@ function showResults(){
     submitButton.innerText = 'Recommencer!';
     submitButton.onclick = function() {
         history.go(); 
+        clearStorage();
     }
+
 }
 
-
-
+setState();
 clearPage();
 showQuestion();
 
