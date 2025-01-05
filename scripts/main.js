@@ -1,41 +1,5 @@
 "use strict";
 
-const questions = [{
-    img_link: "assets/illustr_0.png",
-    question: "Quelle etoile est la plus brillante sur le ciel de nuit?",
-    answers:
-    ["Altair", "Polaire", "Sirius", "Venus"],
-    correct:3
-},
-
-{
-    img_link: "assets/illustr_1.png",
-    question: "Lequel de ces objets est le plus loin de nous?",
-    answers:
-    ["Lune", "Mars", "Station spatiale internationale","Etoile filante"],
-    correct:2
-},
-
-{
-    img_link: "assets/illustr_2.png",
-    question: "Quelle image montre une éclipse lunaire ?",
-    answers:
-    ["1", "2", "3","4"],
-    correct:2
-}
-,
-
-{
-    img_link: "assets/illustr_3.png",
-    question: "Qu’est-ce qui n’est pas le nom de constellation ?",
-    answers:
-    ["Hercules", "Horloge", "Coquelicot","Paon"],
-    correct:3
-}
-];
-
-
-
 const wrapContainer = document.querySelector('#wrap');
 
 let quizCard = document.createElement('form');
@@ -50,25 +14,20 @@ quizCard.addEventListener("submit", (e)=>{
         return
     }
 
-    if (checkedRadio == questions[getQuestion()]['correct']){
+    if (checkedRadio == getQuestion()['correct']){
         addPoint();
-
     }
 
-    if (getQuestion() != questions.length - 1){
+    if (getQuestionIndex() != questions.length - 1){
         nextQuestion();
-
         clearPage();
         showQuestion();
-
     }
+
     else{
         clearPage();
         showResults();
-
     }
-
-
 });
 
 let cardImage = document.createElement('img');
@@ -109,7 +68,7 @@ function clearPage(){
 
 function showQuestion(){
 
-    const question = questions[getQuestion()];
+    const question = getQuestion();
     cardImage.src = question['img_link'];
     quizCard.prepend(cardImage);
 
@@ -138,9 +97,7 @@ function showQuestion(){
         optionLabel.append(optionText);
 
         answerNumber++;
-    })
-
-    
+    })  
 }
 
 
