@@ -1,4 +1,4 @@
-const questions = [{
+const questions_1 = [{
     img_link: "assets/illustr_0.png",
     question: "Quelle etoile est la plus brillante sur le ciel de nuit?",
     answers:
@@ -32,12 +32,44 @@ const questions = [{
 }
 ];
 
+const questions_2 = [
+{
+    img_link:"assets/illustr2_0.png",
+    question: "Laquelle parmi ces photos en longue exposition a été prise sur l'équateur?",
+    answers:["1", "2", "3", "4"],
+    correct:1
+},
+{
+    img_link:"assets/illustr2_1.jpg",
+    question:"Mais qu’est-ce que c’est q’ça dans le ciel?",
+    answers:
+    ["Etoile filante", "C’est un problème de caméra", 
+    "OVNI", "Comète"],
+    correct:4
+},
+{
+    img_link:"assets/illustr2_2.jpg",
+    question:"On observe une éclipse lunaire: sur quelle phase de Lune on est?",
+    answers:["Nouvelle Lune", "Premiere/Derniere quartier",
+        "Pleine Lune","Toutes ces options sont possibles"],
+    correct:3
+},
+{
+    img_link:"assets/illustr2_3.jpg",
+    question:"C’est vraiment clair, on ne voit que la Lune et un objet lumineux tout près. Qu’est-ce que c’est ?",
+    answers:["Etoile Polaire",
+        "SSI (Station Spatiale Internationale)",
+        "Venus","L’avion"],
+    correct:3
+}
+];
+
+const questions=[questions_1, questions_2];
 
 let state = {
-    currentQuestion: 0,
-    currentScore: 0,
-    currentQuiz: 0,
-
+    currentQuestion: [],
+    currentScore: [],
+    currentQuiz: null,
 }
 
 function setState(){
@@ -50,42 +82,65 @@ function getState(){
 
 function addPoint(){
     getState();
-    state.currentScore += 1;
+    state.currentScore[state.currentQuiz] += 1;
     setState();
 }
 
 function nextQuestion(){
     getState();
-    state.currentQuestion += 1;
+    state.currentQuestion[state.currentQuiz] += 1;
+    console.log(state.currentQuestion[state.currentQuiz]);
     setState();
 }
 
 function getScore(){
     getState();
-    return state.currentScore;
+    return state.currentScore[state.currentQuiz];
 }
 
 function getQuestion(){
     getState();
-    return questions[state.currentQuestion];
+    return questions[state.currentQuiz][state.currentQuestion[state.currentQuiz]];
 }
 
 function getQuestionIndex(){
     getState();
-    return state.currentQuestion;
+    return state.currentQuestion[state.currentQuiz];
 }
 
 function getQuiz(){
     getState();
-    return state.currentQuiz;
+    console.log(questions[state.currentQuiz].length);
+    return (questions[state.currentQuiz]);
+
 }
 
-function clearState(){
-    state.currentQuestion = 0;
-    state.currentScore = 0;
-    state.currentQuiz = 0;
+function clearQuiz(){
+    state.currentQuestion[state.currentQuiz] = 0;
+    state.currentScore[state.currentQuiz] = 0;
+    setState();
 }
 
 function clearStorage(){
     localStorage.clear();
+}
+
+function setQuiz(num){
+    getState();
+    state.currentQuiz = num;
+    setState();
+}
+
+function getQuizIndex(){
+    getState();
+    return state.currentQuiz;
+}
+
+function setZeroState(){
+    state = {
+        currentQuestion: [0,0],
+        currentScore: [0,0],
+        currentQuiz: null,
+    }
+    setState();
 }

@@ -1,35 +1,6 @@
 "use strict";
 
 const wrapContainer = document.querySelector('#wrap');
-
-let quizCard = document.createElement('form');
-quizCard.className="quiz";
-quizCard.nam = "answer";
-quizCard.addEventListener("submit", (e)=>{
-    e.preventDefault();
-    const checkedRadio = e.target.answer.value;
-
-    if (!checkedRadio){
-        submitButton.blur();
-        return
-    }
-
-    if (checkedRadio == getQuestion()['correct']){
-        addPoint();
-    }
-
-    if (getQuestionIndex() != questions.length - 1){
-        nextQuestion();
-        clearPage();
-        showQuestion();
-    }
-
-    else{
-        clearPage();
-        showResults();
-    }
-});
-
 let cardImage = document.createElement('img');
 cardImage.className="illustration";
 cardImage.setAttribute("id", "illustration");
@@ -53,11 +24,79 @@ let answersList = document.createElement('ul');
 answersList.className = "options";
 answersList.setAttribute("id", "list");
 
-wrapContainer.append(quizCard);
-quizCard.append(cardBody);
-cardBody.append(cardHeader);
-quizCard.append(submitButton);
+let quizCard = document.createElement('form');
+quizCard.className="quiz";
+quizCard.name = "answer";
+quizCard.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const checkedRadio = e.target.answer.value;
 
+    if (!checkedRadio){
+        submitButton.blur();
+        return
+    }
+
+    if (checkedRadio == getQuestion()['correct']){
+        addPoint();
+    }
+
+    if (getQuestionIndex() != getQuiz().length - 1){
+        nextQuestion();
+        clearPage();
+        showQuestion();
+    }
+
+    else{
+        clearPage();
+        showResults();
+    }
+});
+
+function startPage(){
+    let buttonContainer = document.createElement("div");
+    buttonContainer.className = "buttonContainer";
+    wrapContainer.append(buttonContainer);
+
+    for (let i=0;i<questions.length;i++){
+        let button = document.createElement('button');
+        button.className = "choice";
+        button.textContent = "quiz #"+(i+1);
+        setQuiz(i);
+        const questionInfo = document.createElement('p');
+        questionInfo.textContent = getQuestionIndex()+'/'+getQuiz().length;
+        questionInfo.className = 'questionInfo';
+        button.appendChild(questionInfo);  
+        let buttonImageSrc = "assets/quiz_"+(i+1)+".jpg";
+        button.style.backgroundImage = 'url('+buttonImageSrc+')';
+        buttonContainer.append(button);
+        button.addEventListener("click", ()=> {
+            setQuiz(i);
+            buttonContainer.innerHTML = '';
+            startQuiz();
+        });
+    }
+    let clearButton = document.createElement('button');
+    clearButton.className = 'choice';
+    clearButton.textContent = 'Annuler les résultats';
+    clearButton.style.maxWidth = '220px';
+    clearButton.style.fontSize = '20px';
+    clearButton.addEventListener("click", ()=> {
+        clearStorage();
+        buttonContainer.innerHTML = '';
+        history.go();
+    });
+    buttonContainer.append(clearButton);
+
+}
+
+function startQuiz(){
+    wrapContainer.append(quizCard);
+    quizCard.append(cardBody);
+    cardBody.append(cardHeader);
+    quizCard.append(submitButton);
+    clearPage();
+    showQuestion();
+}
 
 function clearPage(){
     cardHeader.innerHTML = '';
@@ -65,10 +104,9 @@ function clearPage(){
     cardImage.innerHTML = '';
 }
 
-
 function showQuestion(){
-
-    const question = getQuestion();
+    console.log('Show question function: '+ getQuestionIndex());
+    let question = getQuestion();
     cardImage.src = question['img_link'];
     quizCard.prepend(cardImage);
 
@@ -108,12 +146,13 @@ function showResults(){
     let message;
     let title;
     let score = getScore();
+    let maxScore = getQuiz().length;
 
-    if (score === questions.length){
+    if (score === maxScore){
         title = 'Félicitations!🌠';
         message = 'Vous avez répondu correctement à toutes les questions!';
     }
-    else if ((score*100)/questions.length >= 50){
+    else if ((score*100)/maxScore >= 50){
         title = 'Bon résultat!😺';
         message = 'Vous avez répondu correctement à plus de 50% des questions!';
     }
@@ -122,7 +161,7 @@ function showResults(){
         message = 'Vous avez répondu correctement à moins de 50% des questions. Cliquez ici pour recommencer!';
     }
 
-    let result = `${score} de ${questions.length}` ;
+    let result = `${score} de ${maxScore}` ;
 
     questionText.textContent = title;
     cardHeader.append(questionText);
@@ -140,15 +179,29 @@ function showResults(){
     submitButton.blur();
     submitButton.innerText = 'Recommencer!';
     submitButton.onclick = function() {
+        clearQuiz();
         history.go(); 
-        clearStorage();
-    }
 
+    }
 }
 
-setState();
-clearPage();
-showQuestion();
+function checkState(){
+    getState();
+    if (state==null){
+        setZeroState();
+        startPage();
+        console.log('There is no info');
+        console.log(state);
+        
+    }
+    else{
+        console.log('There is an old info:');
+        console.log(state);
+        startPage();
+    }
+}
+
+checkState();
 
 
 
