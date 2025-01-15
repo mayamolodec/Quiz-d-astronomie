@@ -3,7 +3,8 @@ const questions = [{
     question: "Quelle etoile est la plus brillante sur le ciel de nuit?",
     answers:
     ["Altair", "Polaire", "Sirius", "Venus"],
-    correct:3
+    correct:3,
+    index: 0
 },
 
 {
@@ -11,7 +12,8 @@ const questions = [{
     question: "Lequel de ces objets est le plus loin de nous?",
     answers:
     ["Lune", "Mars", "Station spatiale internationale","Etoile filante"],
-    correct:2
+    correct:2,
+    index: 1
 },
 
 {
@@ -19,7 +21,8 @@ const questions = [{
     question: "Quelle image montre une éclipse lunaire ?",
     answers:
     ["1", "2", "3","4"],
-    correct:2
+    correct:2,
+    index: 2
 }
 ,
 
@@ -28,7 +31,8 @@ const questions = [{
     question: "Qu’est-ce qui n’est pas le nom de constellation ?",
     answers:
     ["Hercules", "Horloge", "Coquelicot","Paon"],
-    correct:3
+    correct:3,
+    index: 3
 }
 ];
 
@@ -60,6 +64,32 @@ function nextQuestion(){
     setState();
 }
 
+function getCorrectAnswer(){
+    return getQuestion()['correct'];
+}
+
+function getNextQuestion(){
+    nextQuestion();
+    if (state.currentQuestion != questions.slice(-1).index){
+        return questions[state.currentQuestion];
+    }
+    else{
+        return undefined;
+    }
+}
+
+function getImage(question){
+    return question['img_link'];
+}
+
+function getQuestionText(question){
+    return question['question'];
+}
+
+function getAnswers(question){
+    return question.answers;
+}
+
 function getScore(){
     getState();
     return state.currentScore;
@@ -68,11 +98,6 @@ function getScore(){
 function getQuestion(){
     getState();
     return questions[state.currentQuestion];
-}
-
-function getQuestionIndex(){
-    getState();
-    return state.currentQuestion;
 }
 
 function getQuiz(){

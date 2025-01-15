@@ -4,7 +4,7 @@ const wrapContainer = document.querySelector('#wrap');
 
 let quizCard = document.createElement('form');
 quizCard.className="quiz";
-quizCard.nam = "answer";
+quizCard.name = "answer";
 quizCard.addEventListener("submit", (e)=>{
     e.preventDefault();
     const checkedRadio = e.target.answer.value;
@@ -14,14 +14,15 @@ quizCard.addEventListener("submit", (e)=>{
         return
     }
 
-    if (checkedRadio == getQuestion()['correct']){
+    if (checkedRadio == getCorrectAnswer()){
         addPoint();
     }
 
-    if (getQuestionIndex() != questions.length - 1){
-        nextQuestion();
+    let nextQuestion = getNextQuestion();
+
+    if (!!nextQuestion){
         clearPage();
-        showQuestion();
+        showQuestion(nextQuestion);
     }
 
     else{
@@ -66,20 +67,19 @@ function clearPage(){
 }
 
 
-function showQuestion(){
+function showQuestion(question){
 
-    const question = getQuestion();
-    cardImage.src = question['img_link'];
+    cardImage.src = getImage(question);
     quizCard.prepend(cardImage);
 
-    questionText.textContent = question['question'];
+    questionText.textContent = getQuestionText(question);
     cardHeader.append(questionText);
 
     let answerNumber = 1;
     
     cardHeader.after(answersList);
 
-    question.answers.forEach((answer)=>{
+    getAnswers(question).forEach((answer)=>{
         let answerOption = document.createElement('li');
         let optionLabel = document.createElement('label');
         let optionInput = document.createElement('input');
@@ -146,9 +146,16 @@ function showResults(){
 
 }
 
-setState();
-clearPage();
-showQuestion();
+function startQuiz(){
+    setState();
+    clearPage();
+    let firstQuestion = getQuestion();
+    showQuestion(firstQuestion);
+}
+
+startQuiz();
+
+
 
 
 
