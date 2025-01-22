@@ -69,10 +69,10 @@ function clearPage(){
 
 function showQuestion(question){
 
-    cardImage.src = getImage(question);
+    cardImage.src = question.img_link;
     quizCard.prepend(cardImage);
 
-    questionText.textContent = getQuestionText(question);
+    questionText.textContent = question.text;
     cardHeader.append(questionText);
 
     let answerNumber = 1;
@@ -149,8 +149,7 @@ function showResults(){
 function startQuiz(){
     setState();
     clearPage();
-    let firstQuestion = getQuestion();
-    showQuestion(firstQuestion);
+    showQuestion(getQuestion());
 }
 
 startQuiz();

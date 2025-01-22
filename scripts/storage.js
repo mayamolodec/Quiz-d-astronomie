@@ -1,6 +1,6 @@
 const questions = [{
     img_link: "assets/illustr_0.png",
-    question: "Quelle etoile est la plus brillante sur le ciel de nuit?",
+    text: "Quelle etoile est la plus brillante sur le ciel de nuit?",
     answers:
     ["Altair", "Polaire", "Sirius", "Venus"],
     correct:3,
@@ -9,7 +9,7 @@ const questions = [{
 
 {
     img_link: "assets/illustr_1.png",
-    question: "Lequel de ces objets est le plus loin de nous?",
+    text: "Lequel de ces objets est le plus loin de nous?",
     answers:
     ["Lune", "Mars", "Station spatiale internationale","Etoile filante"],
     correct:2,
@@ -18,7 +18,7 @@ const questions = [{
 
 {
     img_link: "assets/illustr_2.png",
-    question: "Quelle image montre une éclipse lunaire ?",
+    text: "Quelle image montre une éclipse lunaire ?",
     answers:
     ["1", "2", "3","4"],
     correct:2,
@@ -28,7 +28,7 @@ const questions = [{
 
 {
     img_link: "assets/illustr_3.png",
-    question: "Qu’est-ce qui n’est pas le nom de constellation ?",
+    text: "Qu’est-ce qui n’est pas le nom de constellation ?",
     answers:
     ["Hercules", "Horloge", "Coquelicot","Paon"],
     correct:3,
@@ -76,14 +76,6 @@ function getNextQuestion(){
     else{
         return undefined;
     }
-}
-
-function getImage(question){
-    return question['img_link'];
-}
-
-function getQuestionText(question){
-    return question['question'];
 }
 
 function getAnswers(question){
