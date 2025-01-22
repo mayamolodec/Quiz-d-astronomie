@@ -78,10 +78,6 @@ function getNextQuestion(){
     }
 }
 
-function getAnswers(question){
-    return question.answers;
-}
-
 function getScore(){
     getState();
     return state.currentScore;
@@ -93,14 +89,9 @@ function getQuestion(){
 }
 
 function getQuiz(){
+// for two quizes 
     getState();
     return state.currentQuiz;
-}
-
-function clearState(){
-    state.currentQuestion = 0;
-    state.currentScore = 0;
-    state.currentQuiz = 0;
 }
 
 function clearStorage(){

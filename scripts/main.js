@@ -79,7 +79,7 @@ function showQuestion(question){
     
     cardHeader.after(answersList);
 
-    getAnswers(question).forEach((answer)=>{
+    question.answers.forEach((answer)=>{
         let answerOption = document.createElement('li');
         let optionLabel = document.createElement('label');
         let optionInput = document.createElement('input');
