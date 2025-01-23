@@ -1,47 +1,10 @@
 "use strict";
 
-const questions = [{
-    img_link: "assets/illustr_0.png",
-    question: "Quelle etoile est la plus brillante sur le ciel de nuit?",
-    answers:
-    ["Altair", "Polaire", "Sirius", "Venus"],
-    correct:3
-},
-
-{
-    img_link: "assets/illustr_1.png",
-    question: "Lequel de ces objets est le plus loin de nous?",
-    answers:
-    ["Lune", "Mars", "Station spatiale internationale","Etoile filante"],
-    correct:2
-},
-
-{
-    img_link: "assets/illustr_2.png",
-    question: "Quelle image montre une éclipse lunaire ?",
-    answers:
-    ["1", "2", "3","4"],
-    correct:2
-}
-,
-
-{
-    img_link: "assets/illustr_3.png",
-    question: "Qu’est-ce qui n’est pas le nom de constellation ?",
-    answers:
-    ["Hercules", "Horloge", "Coquelicot","Paon"],
-    correct:3
-}
-];
-
-let score = 0;
-let question_index = 0;
-
 const wrapContainer = document.querySelector('#wrap');
 
 let quizCard = document.createElement('form');
 quizCard.className="quiz";
-quizCard.nam = "answer";
+quizCard.name = "answer";
 quizCard.addEventListener("submit", (e)=>{
     e.preventDefault();
     const checkedRadio = e.target.answer.value;
@@ -51,24 +14,21 @@ quizCard.addEventListener("submit", (e)=>{
         return
     }
 
-    if (checkedRadio == questions[question_index]['correct']){
-        score++;
-
+    if (checkedRadio == getCorrectAnswer()){
+        addPoint();
     }
 
-    if (question_index !== questions.length -1){
-        question_index++;
+    let nextQuestion = getNextQuestion();
+
+    if (!!nextQuestion){
         clearPage();
-        showQuestion();
-
+        showQuestion(nextQuestion);
     }
+
     else{
         clearPage();
         showResults();
-
     }
-
-
 });
 
 let cardImage = document.createElement('img');
@@ -107,12 +67,12 @@ function clearPage(){
 }
 
 
-function showQuestion(){
-    const question = questions[question_index];
-    cardImage.src = question['img_link'];
+function showQuestion(question){
+
+    cardImage.src = question.img_link;
     quizCard.prepend(cardImage);
 
-    questionText.textContent = question['question'];
+    questionText.textContent = question.text;
     cardHeader.append(questionText);
 
     let answerNumber = 1;
@@ -137,9 +97,7 @@ function showQuestion(){
         optionLabel.append(optionText);
 
         answerNumber++;
-    })
-
-    
+    })  
 }
 
 
@@ -149,7 +107,7 @@ function showResults(){
 
     let message;
     let title;
-
+    let score = getScore();
 
     if (score === questions.length){
         title = 'Félicitations!🌠';
@@ -183,13 +141,20 @@ function showResults(){
     submitButton.innerText = 'Recommencer!';
     submitButton.onclick = function() {
         history.go(); 
+        clearStorage();
     }
+
 }
 
+function startQuiz(){
+    setState();
+    clearPage();
+    showQuestion(getQuestion());
+}
+
+startQuiz();
 
 
-clearPage();
-showQuestion();
 
 
 
